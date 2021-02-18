@@ -1,0 +1,135 @@
+<template>
+  <div class="table-wrapper">
+    <div ref="queryRef" :class="[ 'query-wrapper']">
+      <!--form-->
+      <slot name="formSlot" />
+    </div>
+    <el-row class="btn-wrapper">
+      <el-col :xs="16" :sm="18" :md="19" :lg="19" :xl="21">
+        <slot name="btnAfterSlot" />
+      </el-col>
+      <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="3">
+        <el-row justify="end" type="flex">
+          <slot name="btnBeforeSlot" />
+          <el-tooltip
+            v-if="showBtn"
+            class="item"
+            effect="dark"
+            content="展开/折叠"
+            placement="top-start"
+          >
+            <el-button
+              icon="el-icon-news"
+              circle
+              size="mini"
+              @click="handlerBlockControl"
+            />
+          </el-tooltip>
+        </el-row>
+      </el-col>
+    </el-row>
+
+    <slot name="tableSlot" class="body-wrapper" />
+    <slot name="paginationSlot" class="pagination-wrapper" />
+
+    <slot name="other" />
+  </div>
+</template>
+
+<script>
+export default {
+    name: 'TableView',
+    props: {
+        showBtn: {
+            type: Boolean,
+            default: true
+        },
+        open: {
+            type: Boolean,
+            default: true
+        }
+    },
+    data() {
+        return {
+            opened: this.open,
+            initFormheight: ''
+        }
+    },
+    watch: {
+        opened(oldVal, newVal) {
+            this.doForm()
+        }
+    },
+    mounted() {
+        this.initFormheight = this.$refs.queryRef.offsetHeight + 'px'
+        this.opened = this.$store.getters.mobile ? !this.opened : this.opened
+        this.doForm()
+    },
+    methods: {
+        handlerBlockControl() {
+            this.opened = !this.opened
+        },
+        doForm() {
+            const formRef = this.$refs.queryRef
+            if (!this.opened) {
+                formRef.style.height = '0px'
+                formRef.style.overflow = 'hidden'
+                formRef.style.transition = '.5s'
+            } else {
+                formRef.style.height = this.initFormheight
+                formRef.style.transition = '.5s'
+            }
+        }
+    }
+}
+</script>
+<style lang="scss" >
+.table-wrapper {
+    height: 100%;
+    padding: 8px 5px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+     box-sizing: border-box;
+    .query-wrapper {
+        height: auto;
+        border-bottom:1px solid#eaeefb;
+        transition: height 1s;
+    }
+    .btn-wrapper {
+        border-left: .3rem solid #1890ff;
+        background: #eaeefb;
+        padding: 6px 10px 6px 10px;
+    }
+    .el-table  {
+        flex:1;
+        .el-link {
+            padding-right:10px;
+        }
+    }
+    .el-pagination {
+        text-align: right;
+        padding: 15px 30px 0px 0;
+    }
+}
+
+.demo-block-control {
+    border: 1px solid #eaeefb;
+    height: 18px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    text-align: center;
+    margin-top: -1px;
+    color: #d3dce6;
+    cursor: pointer;
+    position: relative;
+}
+
+.demo-block-control i {
+    font-size: 14px;
+    line-height: 18px;
+    transition: .3s;
+}
+</style>

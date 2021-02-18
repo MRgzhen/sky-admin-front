@@ -1,0 +1,310 @@
+// view
+.content-container,
+.dialog-wrapper {
+    ::-webkit-scrollbar-track-piece {
+        -webkit-border-radius: 0
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 10px
+    }
+
+    ::-webkit-scrollbar-thumb {
+        height: 50px;
+        background-color: #b8b8b8;
+        -webkit-border-radius: 6px;
+        outline-offset: -2px;
+        filter: alpha(opacity=50);
+        -moz-opacity: 0.5;
+        -khtml-opacity: 0.5;
+        opacity: 0.5
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        height: 50px;
+        background-color: #878987;
+        -webkit-border-radius: 6px
+    }
+}
+
+// 左右框
+.two_table-wrapper {
+    height: 100%;
+    box-sizing: border-box;
+
+    .one-wrapper {
+        height: 100%;
+        overflow-y: auto;
+        margin-right: 10px;
+        background: #fff;
+        padding: 8px 5px;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+        border-radius: 4px;
+        border: 1px solid #EBEEF5;
+
+        .btn-wrapper {
+            padding: 7px 10px 7px 10px;
+            margin-bottom: 5px;
+            border-left: .3rem solid #1890ff;
+            background: #eaeefb;
+        }
+
+        .query-wrapper {
+            margin-bottom: 5px;
+
+            .el-input__inner {
+                border-radius: 2px;
+            }
+
+        }
+
+        .body-wrapper {
+            overflow-y: auto;
+            .el-tag {
+                height: 24px;
+                padding: 0 8px;
+                line-height: 22px;
+            }
+        }
+    }
+    .two-wrapper {
+        height: 100%;
+        padding: 8px 5px;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        box-sizing: border-box;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+        border-radius: 4px;
+        border: 1px solid #EBEEF5;
+        .btn-wrapper {
+            padding: 7px 10px 7px 10px;
+            margin-bottom: 5px;
+            border-left: .3rem solid #1890ff;
+            background: #eaeefb;
+        }
+
+        .query-wrapper {
+            margin-bottom: 5px;
+
+            .el-input__inner {
+                border-radius: 2px;
+            }
+
+        }
+
+        .body-wrapper {
+            overflow-y: auto;
+            .el-tag {
+                height: 24px;
+                padding: 0 8px;
+                line-height: 22px;
+            }
+        }
+    }
+}
+
+// 单框
+.table-wrapper {
+    height: 100%;
+    padding: 8px 5px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    border-radius: 4px;
+    border: 1px solid #EBEEF5;
+
+    // form提交
+    .query-wrapper {
+        height: auto;
+        border-bottom: 1px solid#eaeefb;
+        transition: height 1s;
+
+        .el-form-item {
+            margin-bottom: 12px !important;
+
+            .el-form-item__label {
+                font-size: 13px !important;
+                width: 100px !important;
+            }
+        }
+
+        // 处理按钮
+        .el-form-item:last-child {
+            .el-form-item__content {
+                padding-left: 100px;
+            }
+        }
+
+        @media screen and (min-width: 0px) {
+            .el-form-item {
+                width: calc(100% - 10px) !important;
+
+                .el-form-item__content {
+                    width: calc(100% - 100px);
+
+                    &>div {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        @media screen and (min-width: 580px) {
+            .el-form-item {
+                width: calc(50% - 10px) !important;
+
+                .el-form-item__content {
+                    width: calc(100% - 100px);
+
+                    &>div {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        @media screen and (min-width: 992px) {
+            .el-form-item {
+                width: calc(33.3333% - 10px) !important;
+
+                .el-form-item__content {
+                    width: calc(100% - 100px);
+
+                    &>div {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        @media screen and (min-width: 1920px) {
+            .el-form-item {
+                width: calc(25% - 10px) !important;
+
+                .el-form-item__content {
+                    width: calc(100% - 100px);
+
+                    &>div {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .btn-wrapper {
+        line-height: 28px;
+        padding: 5px 10px 5px 10px;
+        border-left: .3rem solid #1890ff;
+        background: #eaeefb;
+    }
+
+    .el-table {
+        margin-top: 5px;
+        .el-tag {
+            height: 24px;
+            padding: 0 8px;
+            line-height: 22px;
+        }
+    }
+
+    .el-table--scrollable-y {
+        .el-table__fixed-right {
+            right: 5px !important;
+        }
+    }
+
+    .el-pagination {
+        text-align: right;
+        padding: 15px 30px 0px 0;
+    }
+}
+
+// dialog
+.dialog-wrapper {
+    .el-dialog {
+        .el-dialog__header {
+            border-bottom: 1px solid #eaeefb;
+
+            .el-dialog__title {
+                font-size: 16px !important;
+            }
+        }
+
+        .el-dialog__body {
+            .el-form {
+                .el-form-item {
+                    .el-form-item__label {
+                        font-size: 13px !important;
+                        width: 100px !important;
+                    }
+                }
+            }
+
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        .el-dialog {
+            width: calc(100% - 20px) !important;
+            max-width: calc(100% - 20px) !important;
+            margin: 8px auto !important;
+
+            .el-dialog__body {
+                .no_inline-form {
+                    .el-form-item {
+                        .el-form-item__content {
+                            &>div {
+                                width: 100% !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 701px) {
+        .el-dialog {
+            .el-dialog__body {
+                .no_inline-form {
+                    .el-form-item {
+                        .el-form-item__content {
+                            padding-right: 50px;
+
+                            &>div {
+                                width: 500px !important;
+                            }
+                        }
+                    }
+
+                    // 处理按钮
+                    .el-form-item:last-child {
+                        text-align: right !important;
+                    }
+                }
+
+                .inline-form {
+                    .el-form-item {
+                        .el-form-item__content {
+                            width: 215px !important;
+
+                            &>div {
+                                width: 215px !important;
+                            }
+                        }
+                    }
+
+                    // 最后一个向右偏移500，主要针对按钮
+                    .el-form-item:last-child {
+                        margin-left: 400px;
+                    }
+                }
+            }
+        }
+    }
+}

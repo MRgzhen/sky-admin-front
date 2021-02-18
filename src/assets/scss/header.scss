@@ -1,0 +1,105 @@
+#app {
+    .header-container {
+        display: -webkit-box;
+        height: $headerHight;
+        line-height: $headerHight;
+
+        & .header-title {
+            box-sizing: border-box;
+            line-height: $headerHight;
+            font-size: 20px;
+            color: $titleColor;
+            font: Georgia, "Times New Roman", Times, serif;
+        }
+
+        & .header-body {
+            -webkit-box-flex: 1;
+
+            .header-shousuo {
+                display: inline-block;
+                height: 100%;
+                padding: 0 5px;
+                font: Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+            }
+        }
+
+        & .header-userinfo {
+            display: flex;
+            flex-direction: row-reverse;
+            width: $sideBarWidth;
+
+            .header-logout {
+                flex: none;
+                display: inline-block;
+                margin: 0 5px;
+                padding: 0 10px;
+                line-height: $headerHight;
+                .icon-tuichu {
+                    display: inline-block;
+                    width: 1.8em;
+                    height: 1.8em;
+                    vertical-align: -0.60em;
+                    overflow: hidden;
+                    cursor: pointer;
+                    color:#1296DB;
+                }
+               
+            }
+
+            .el-dropdown {
+                cursor: pointer;
+                .header-avatar {
+                    flex: none;
+                    padding: 0 5px;
+                    font-size: 14px;
+                    font: Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+                    .el-avatar {
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
+
+    // 页面窗口适配
+    .open-header-title {
+        width: $sideBarWidth !important;
+        padding: 0 30px;
+    }
+
+    .hide-header-title {
+        width: $hideSideBarWidth !important;
+        text-align: center;
+    }
+
+    .mobile-header-body {
+        float: right;
+        margin-right: 30px;
+    }
+
+    // 图标
+    .icon-sky {
+        width: 2.5em;
+        height: 2.5em;
+        vertical-align: -0.75em;
+        fill: currentColor;
+        overflow: hidden;
+    }
+
+    .icon-shousuo {
+        display: inline-block;
+        width: 1.2em;
+        height: 1.2em;
+        vertical-align: -0.20em;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .shousuoClass {
+        transform: rotate(0deg);
+    }
+
+    .zhankaiClass {
+        transform: rotate(90deg);
+    }
+}

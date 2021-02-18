@@ -1,0 +1,127 @@
+<template>
+  <div class="table-view-wrapper">
+    <div ref="queryRef" :class="[ 'query-wrapper']">
+      <!--form-->
+      <slot name="formSlot" />
+    </div>
+    <el-row class="btn-wrapper">
+      <el-col :xs="16" :sm="18" :md="19" :lg="19" :xl="21">
+        <slot name="btnBeforeSlot" />
+      </el-col>
+      <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="3">
+        <el-row justify="end" type="flex">
+          <slot name="btnAfterSlot" />
+          <el-tooltip
+            v-if="showBtn"
+            class="item"
+            effect="dark"
+            content="搜索"
+            placement="top-start"
+          >
+            <el-button
+              icon="el-icon-search"
+              circle
+              size="small"
+              @click="handlerBlockControl"
+            />
+          </el-tooltip>
+        </el-row>
+      </el-col>
+    </el-row>
+
+    <slot name="tableSlot" class="body-wrapper" />
+    <slot name="paginationSlot" class="pagination-wrapper" />
+
+    <slot name="other" />
+  </div>
+</template>
+
+<script>
+export default {
+    name: 'TableView',
+    props: {
+        showBtn: {
+            type: Boolean,
+            default: true
+        },
+        opened: {
+            type: Boolean,
+            default: true
+        }
+    },
+    data() {
+        return {
+            initFormheight: ''
+        }
+    },
+    watch: {
+        opened(oldVal, newVal) {
+            this.doForm()
+        }
+    },
+    mounted() {
+        this.initFormheight = this.$refs.queryRef.offsetHeight + 'px'
+        this.opened = this.$store.getters.mobile ? !this.opened : this.opened
+        this.doForm()
+    },
+    methods: {
+        handlerBlockControl() {
+            this.opened = !this.opened
+        },
+        doForm() {
+            const formRef = this.$refs.queryRef
+            if (!this.opened) {
+                formRef.style.height = 'auto'
+                formRef.style.overflow = 'hidden'
+                formRef.style.transition = '.5s'
+
+                // const elFormEle = formRef.getElementsByClassName('el-form-item')
+                // for (var i = 2; i < elFormEle.length; i++) {
+                //     if (i === elFormEle.length - 1) {
+                //         break
+                //     } else {
+                //         elFormEle[i].style.display = 'none'
+                //     }
+                // }
+            } else {
+                formRef.style.height = this.initFormheight
+                formRef.style.transition = '.5s'
+
+                // const elFormEle = formRef.getElementsByClassName('el-form-item')
+                // for (var j = 2; j < elFormEle.length; j++) {
+                //     if (j === elFormEle.length - 1) {
+                //         break
+                //     } else {
+                //         elFormEle[j].style.display = 'inline-block'
+                //     }
+                // }
+            }
+        }
+    }
+}
+</script>
+<style lang="scss" >
+.table-view-wrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    .query-wrapper {
+        height: auto;
+        transition: height 1s;
+        border-bottom:1px solid #DCDFE6;
+    }
+    .btn-wrapper {
+        padding: 10px 30px 10px 10px;
+    }
+    .el-table  {
+        flex:1;
+        .el-link {
+            padding-right:10px;
+        }
+    }
+    .el-pagination {
+        text-align: right;
+        padding: 15px 30px 10px 0;
+    }
+}
+</style>

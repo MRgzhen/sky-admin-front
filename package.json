@@ -1,0 +1,55 @@
+{
+  "name": "skymt",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "0.21.0",
+    "codemirror": "^5.58.3",
+    "core-js": "3.6.5",
+    "crypto-js": "^4.0.0",
+    "el-select-tree": "^1.0.26",
+    "element-ui": "2.13.2",
+    "js-base64": "3.5.2",
+    "js-cookie": "2.2.1",
+    "js-file-download": "^0.4.12",
+    "qs": "^6.9.4",
+    "vue": "2.6.12",
+    "vue-router": "3.4.8",
+    "vuex": "3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.5.8",
+    "@vue/cli-plugin-eslint": "^4.5.8",
+    "@vue/cli-plugin-router": "4.5.8",
+    "@vue/cli-plugin-vuex": "4.5.8",
+    "@vue/cli-service": "4.5.8",
+    "babel-eslint": "10.1.0",
+    "eslint": "6.8.0",
+    "eslint-plugin-vue": "6.2.2",
+    "lint-staged": "9.5.0",
+    "node-sass": "4.14.1",
+    "sass-loader": "8.0.2",
+    "script-ext-html-webpack-plugin": "^2.1.5",
+    "svg-sprite-loader": "5.0.0",
+    "vue-template-compiler": "2.6.12"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}
