@@ -172,7 +172,6 @@ export default {
                 }
                 newApi = this.$api.auth.loginSms
             }
-            console.log(newForm)
             this.loading = true
             this.$ajax.postForm(newApi, newForm, true).then(result => {
                 if (result.code !== '10000') {
