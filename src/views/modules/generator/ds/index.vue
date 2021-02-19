@@ -28,9 +28,9 @@
       <el-table-column prop="password" label="密码" />
       <el-table-column label="操作" fixed="right" align="center" width="350">
         <template slot-scope="scope">
-          <el-link type="primary" :underline="false" icon="el-icon-edit" @click="handleCustomAdd(scope.row)">修改</el-link>
-          <el-link type="primary" :underline="false" icon="el-icon-delete" @click="handleDel(scope.row)">删除</el-link>
-          <el-link type="primary" :underline="false" icon="el-icon-delete" @click="handleDsTest(scope.row)">连接测试</el-link>
+          <el-link type="primary" :underline="false" icon="el-icon-edit" size="mini" @click="handleCustomAdd(scope.row)">修改</el-link>
+          <el-link type="primary" :underline="false" icon="el-icon-delete" size="mini" @click="handleDel(scope.row)">删除</el-link>
+          <el-link type="primary" :underline="false" icon="el-icon-delete" size="mini" @click="handleDsTest(scope.row)">连接测试</el-link>
         </template>
       </el-table-column>
     </el-table>

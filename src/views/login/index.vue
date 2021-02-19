@@ -74,13 +74,13 @@
                 />
               </el-col>
               <el-col :span="8" :push="1" style="height:40px;border-radius: 5px;">
-                <el-button type="primary" plain style="width:100%;">发送验证码</el-button>
+                <el-button type="primary" plain style="width:100%;" @click="handleSms">发送验证码</el-button>
               </el-col>
             </el-row>
           </el-form-item>
         </template>
         <el-form-item class="login-type_cl" prop="rememberMe">
-          <el-checkbox v-model="form.rememberMe">记住我</el-checkbox>
+          <!-- <el-checkbox v-model="form.rememberMe">记住我</el-checkbox> -->
           <a @click="handleLoginType">{{ loginTypeText }}</a>
         </el-form-item>
         <el-form-item>
@@ -202,6 +202,13 @@ export default {
             this.loginTypeText = this.loginType ? '用户名密码登录' : '短信验证登录'
             this.$refs.form.clearValidate()
         },
+        handleSms() {
+            this.$message({
+                message: '拼命完善中...',
+                type: 'warn',
+                duration: 5 * 1000
+            })
+        },
         handleLogin() {
             this.$refs['form'].validate((valid) => {
                 if (valid) {
@@ -216,61 +223,73 @@ export default {
         },
         handleSocial(app) {
             this.loading = true
-            // this.$store.commit('SET_AUTH_TYPE', 'gitee')
+            // 重定向地址
             const redirect_uri = process.env.VUE_APP_BASE_API + '/sys/social/auth/login/' + app +
                                  '?domain=' + window.location.origin
-            this.$common.openWindow(redirect_uri, app, 540, 540)
-            const context = this
-            window.addEventListener('message', function(e) {
-                try {
-                    const data = JSON.parse(e.data)
-                    if (data.code !== '10000') {
-                        context.$message({
-                            message: '第三方授权登录失败',
-                            type: 'error',
-                            duration: 5 * 1000
-                        })
-                        context.loading = false
-                        return
-                    }
-                    if (data.bean.auth === '0') {
-                        context.$message({
-                            message: '没有关联用户',
-                            type: 'error',
-                            duration: 5 * 1000
-                        })
-                    } else {
-                        const formSocial = {
-                            openId: data.bean.openId,
-                            app: data.bean.app,
-                            grant_type: 'social'
-                        }
-                        context.$ajax.postForm(context.$api.auth.loginSocial, formSocial, true).then(result => {
-                            if (result.code !== '10000') {
-                                context.$message({
-                                    message: result.msg,
-                                    type: 'error',
-                                    duration: 5 * 1000
-                                })
-                                context.$store.dispatch('user/cleanUser')
-                                context.loading = false
-                            } else {
-                                setToken(result.bean.access_token)
-                                context.$store.commit('user/SET_TOKEN', result.bean.access_token)
-                                context.$router.push({ path: '/' })
-                                context.loading = false
-                            }
 
-                            // eslint-disable-next-line handle-callback-err
-                        }).catch(error => {
-                            this.loading = false
-                        })
-                    }
-                } catch (error) {
-                    // 什么也不做
+            // 打开关闭窗口
+            const newWindow = this.$common.openWindow(redirect_uri, app, 540, 540)
+            const context = this
+            const interval = setInterval(function() {
+                if (newWindow != null && newWindow.closed) {
                     context.loading = false
+                    clearInterval(interval)
                 }
-            })
+            }, 800)
+
+            // 监听事件
+            window.addEventListener('message', this.doSocial)
+            window.removeEventListener('message', this.doSocial, true)
+        },
+        doSocial(e) {
+            try {
+                const data = JSON.parse(e.data)
+                if (data.code !== '10000') {
+                    this.$message({
+                        message: '第三方授权登录失败',
+                        type: 'error',
+                        duration: 5 * 1000
+                    })
+                    this.loading = false
+                    return
+                }
+                if (data.bean.auth === '0') {
+                    this.$message({
+                        message: '没有关联用户',
+                        type: 'error',
+                        duration: 5 * 1000
+                    })
+                } else {
+                    const formSocial = {
+                        openId: data.bean.openId,
+                        app: data.bean.app,
+                        grant_type: 'social'
+                    }
+                    this.$ajax.postForm(this.$api.auth.loginSocial, formSocial, true).then(result => {
+                        if (result.code !== '10000') {
+                            this.$message({
+                                message: result.msg,
+                                type: 'error',
+                                duration: 5 * 1000
+                            })
+                            this.$store.dispatch('user/cleanUser')
+                            this.loading = false
+                        } else {
+                            setToken(result.bean.access_token)
+                            this.$store.commit('user/SET_TOKEN', result.bean.access_token)
+                            this.$router.push({ path: '/' })
+                            this.loading = false
+                        }
+
+                        // eslint-disable-next-line handle-callback-err
+                    }).catch(error => {
+                        this.loading = false
+                    })
+                }
+            } catch (error) {
+                // 什么也不做
+                this.loading = false
+            }
         }
     }
 }
